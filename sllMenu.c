@@ -24,6 +24,9 @@ void deleteAtStart(node **);
 void deleteAtEnd(node **);
 void insertBefore(node **, int, int);
 void deleteList(node **);
+void deleteAfter(node **, int);
+void deleteBefore(node **, int);
+
 
 // void deleteAtEnd2(node *);
 // void insertBefore(node **,int,int); // i belive insert before is not possiable in sll.
@@ -45,10 +48,10 @@ void main()
         printf("\n5.Delete from end");   // 1
         printf("\n6.Insert after");      // 1
         printf("\n7.Insert Before");     // 1
-        printf("\n8.Delete entire list");
+        printf("\n8.Delete entire list");//1
         printf("\n9.Search"); // 1
         printf("\n10.Reverse");
-        printf("\n11.Delete after");
+        printf("\n11.Delete after");//1
         printf("\n12.Delete before");
         printf("\n13.Exit\n"); // 1
         printf("\nChoose a option from the menu : ");
@@ -105,7 +108,7 @@ void main()
             printf("\nEnter the value whoese address you want : ");
             scanf("%d", &item);
             node *address = search(head, item);
-            printf("\n%u is the addres of %d", address, item);
+            //printf("\n%u is the addres of %d", address, item);
             break;
 
         case 10:
@@ -113,10 +116,18 @@ void main()
             break;
 
         case 11:
+            printf("\nEnter the value after which you wanted to delte node : ");
+            scanf("%d",&item);
+            deleteAfter(&head,item);
+            printf("\nNode Deleted");
 
             break;
 
         case 12:
+            printf("\nEnter the value befor which you wanted to delte node : ");
+            scanf("%d",&item);
+            deleteBefore(&head,item);
+            printf("\nNode Deleted");
             break;
 
         case 13:
@@ -355,6 +366,125 @@ void deleteList(node **head1)
     free(temp);
     *head1 = NULL;
 }
+
+void deleteAfter(node **head1, int item)
+{
+
+    node *temp = search(*head1, item);
+
+    if (temp->next == NULL)
+    { // this handels both the first and last node.
+        printf("\nThere is no element after %d ", item);
+    }
+
+    else
+    {
+        node *loc = temp->next;          // give loc the address which is to be freed.
+        temp->next = (temp->next)->next; // if only 1 node after the node to be deleted then null is also handeld.
+        free(loc);
+    }
+}
+
+void deleteBefore(node **head1, int item){
+    if(*head1==NULL || (*head1)->next==NULL){
+        printf("\nThere is notthing before this node or list is empty.");
+    }
+
+    else if(((*head1)->next)->next==NULL && ((*head1)->next)->item==item){// if there is only 2 nodes.
+        node *temp=*head1;
+        *head1=(*head1)->next;
+        free(temp);
+    }
+
+    else{
+        node *temp=*head1;
+
+        while (temp->next!=NULL)
+        {
+            if(((temp->next)->next)->item!=item){
+                node *loc=temp->next;// giving loc the addres which is to freed.
+                temp->next=loc->next;// giving current node the next part of node which going to deleted.
+                free(loc);
+            }
+
+            // else{// this else not returning control to main.....?***********************************
+            //     temp=temp->next;
+            //     printf("\nHiii");
+            // }
+
+                temp=temp->next;
+                printf("\nHiii");
+
+        }
+
+        printf("\nIteam not found");        
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// void deleteBefore(node **head1, int item){
+
+//     if (item==(*head1)->item)
+//     {
+//         printf("\nThere is nothing before this %d ",item);
+//     }
+
+//     node *temp=*head1;
+
+//      while(((temp)->next)->next!=NULL){// run this loop until we are at node after which we need to delete
+//         if((temp->next)->item==item){
+//             node *loc=temp;//give address of node which is to be deeted to loc.
+
+//         }
+//     }
+//     if((temp->next)->item==item){// checking if last node is the node which is to be find.
+
+//     }
+   
+
+//     //now we
+    
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+//  while(((temp)->next)->item!=item && (temp->next)->next!=NULL){// run this loop until we are at node after which we need to delte AND we are at the secound last node
+//         if((temp->next)->next!=NULL){
+            
+//         }
+//     }
 
 
 
